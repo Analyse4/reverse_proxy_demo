@@ -7,8 +7,6 @@ import (
 	"reverse_proxy_demo/config"
 )
 
-
-
 func requestAndRedirect(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("In func requestAndRedirect")
 }
