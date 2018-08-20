@@ -1,9 +1,26 @@
 package main
 
-import "net/http"
+import (
+	"fmt"
+	"github.com/spf13/viper"
+	"net/http"
+	"strconv"
+)
 
 func getEnv(key, fallback string) string {
-	return ""
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+	viper.SetConfigType("yaml")
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(fmt.Errorf("fatal error config %s \n", err))
+	}
+	tmpport := viper.Get("PORT").(int)
+	port := strconv.Itoa(tmpport)
+	if port == "" {
+		return fallback
+	}
+	return port
 }
 
 func getListenAddress() string {
@@ -11,19 +28,22 @@ func getListenAddress() string {
 	return ":" + port
 }
 
-func LogSetup()  {
+func LogSetup() {
 
 }
 
-func requestAndRedirect(w http.ResponseWriter, r *http.Request)  {
-	
+func requestAndRedirect(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("In func requestAndRedirect")
 }
 
-func main()  {
+func main() {
 	//log setup values
 	LogSetup()
 
 	//start server
 	http.HandleFunc("/", requestAndRedirect)
 	http.ListenAndServe(getListenAddress(), nil)
+
+	//test
+	//fmt.Println(getListenAddress())
 }
