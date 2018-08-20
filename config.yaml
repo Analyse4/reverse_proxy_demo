@@ -1,1 +1,5 @@
-PORT: 9044
+PORT: "9044"
+REDIRECT_URL:
+    A_CONDITION_URL: "http://localhost:9050"
+    B_CONDITION_URL: "http://localhost:9051"
+    DEFAULT_CONDITION_URL: "http://localhost:9052"
