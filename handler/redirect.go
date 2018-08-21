@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"log"
 	"bytes"
+	"strings"
+	"reverse_proxy_demo/config"
 )
 
 func parseRequestBody(req *http.Request) models.RequestPayloadStruct {
@@ -36,5 +38,19 @@ func requestBodyDecoder(req *http.Request) *json.Decoder {
 func RequestAndRedirect(w http.ResponseWriter, r *http.Request) {
 	//parse request for payload
 	payload := parseRequestBody(r)
-	log.Println(payload.ProxyCondition)
+	redirecturl := getProxyUrl(payload.ProxyCondition)
+	log.Printf("proxy_condition: %s, proxy_url: %s\n", payload.ProxyCondition, redirecturl)
+}
+
+//get proxy-url from req-payload
+func getProxyUrl(rp string) string {
+	proxycondition := strings.ToUpper(rp)
+
+	if proxycondition == "A" {
+		return config.AConditionUrl
+	} else if proxycondition == "B" {
+		return  config.BConditionUrl
+	}else {
+		return config.DefaultConditionUrl
+	}
 }

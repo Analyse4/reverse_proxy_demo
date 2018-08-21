@@ -6,6 +6,11 @@ import (
 	"log"
 )
 
+var AConditionUrl string
+var BConditionUrl string
+var DefaultConditionUrl string
+
+
 func init()  {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
@@ -30,16 +35,16 @@ func GetListenAddress() string {
 }
 
 func LogSetup() {
-	a_condition_url := viper.Get("REDIRECT_URL.A_CONDITION_URL")
-	b_condition_url := viper.Get("REDIRECT_URL.B_CONDITION_URL")
-	default_condition_url := viper.Get("REDIRECT_URL.DEFAULT_CONDITION_URL")
+	AConditionUrl = viper.Get("REDIRECT_URL.A_CONDITION_URL").(string)
+	BConditionUrl = viper.Get("REDIRECT_URL.B_CONDITION_URL").(string)
+	DefaultConditionUrl = viper.Get("REDIRECT_URL.DEFAULT_CONDITION_URL").(string)
 
 	//a_condition_url := viper.Get("A_CONDITION_URL")
 	//b_condition_url := viper.Get("B_CONDITION_URL")
 	//default_condition_url := viper.Get("DEFAULT_CONDITION_URL")
 
 	log.Printf("Server will run on: localhost%s\n", GetListenAddress())
-	log.Printf("Redirecting to A url: %s\n", a_condition_url)
-	log.Printf("Redirecting to B url: %s\n", b_condition_url)
-	log.Printf("Redirecting to Default url: %s\n", default_condition_url)
+	log.Printf("Redirecting to A url: %s\n", AConditionUrl)
+	log.Printf("Redirecting to B url: %s\n", BConditionUrl)
+	log.Printf("Redirecting to Default url: %s\n", DefaultConditionUrl)
 }

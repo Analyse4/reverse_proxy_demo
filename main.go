@@ -10,7 +10,6 @@ import (
 func main() {
 	//log setup values
 	config.LogSetup()
-
 	//start server
 	http.HandleFunc("/", handler.RequestAndRedirect)
 	http.ListenAndServe(config.GetListenAddress(), nil)
