@@ -8,9 +8,9 @@ import (
 )
 
 func main() {
-	//log setup values
+	// Log setup values
 	config.LogSetup()
-	//start server
+	// Start server
 	http.HandleFunc("/", handler.RequestAndRedirect)
 	http.ListenAndServe(config.GetListenAddress(), nil)
 }
